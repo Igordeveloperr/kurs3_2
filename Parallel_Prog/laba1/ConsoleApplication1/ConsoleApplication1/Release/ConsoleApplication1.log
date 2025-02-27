@@ -1,0 +1,8 @@
+﻿  ConsoleApplication1.cpp
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_prog\laba1\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(194,18): warning C4244: аргумент: преобразование "const double" в "const unsigned int", возможна потеря данных
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_prog\laba1\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(195,18): warning C4244: аргумент: преобразование "const double" в "const unsigned int", возможна потеря данных
+  Создание кода
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 217 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  ConsoleApplication1.vcxproj -> C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_prog\laba1\ConsoleApplication1\Release\ConsoleApplication1.exe

@@ -1,0 +1,9 @@
+﻿  testOpenMP.cpp
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\testOpenMP\testOpenMP\testOpenMP.cpp(22,18): warning C4244: аргумент: преобразование "const double" в "const unsigned __int64", возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\testOpenMP\testOpenMP\testOpenMP.cpp(23,18): warning C4244: аргумент: преобразование "const double" в "const unsigned __int64", возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\testOpenMP\testOpenMP\testOpenMP.cpp(27,22): error C3017: неверный вид проверки завершения в операторе For директивы OpenMP
+      C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\testOpenMP\testOpenMP\testOpenMP.cpp(27,22):
+      Ожидалась простая переменная цикла в левой части "<".
+  
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\testOpenMP\testOpenMP\testOpenMP.cpp(37,18): warning C4244: аргумент: преобразование "const double" в "const unsigned __int64", возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\testOpenMP\testOpenMP\testOpenMP.cpp(38,18): warning C4244: аргумент: преобразование "const double" в "const unsigned __int64", возможна потеря данных

@@ -1,0 +1,139 @@
+package main;
+
+import java.math.BigInteger;
+
+/**
+ * Class for working with fractional arithmetic
+ * @author OOO Shizotekhnika
+ * @version 1.0
+ */
+public class BigFraction {
+
+    /**
+     * Variables to represent fractions
+     */
+    private BigInteger numerator = BigInteger.ONE;
+    private BigInteger denominator = BigInteger.ONE;
+
+    /**
+     * Object for storing the result of arithmetic operations
+     */
+    private static BigFraction answer = new BigFraction(BigInteger.ONE, BigInteger.ONE);
+
+    /**
+     * Constructor for input values
+     * @param numerator of the fraction
+     * @param denominator of the fraction
+     */
+    public BigFraction(BigInteger numerator, BigInteger denominator) {
+        this.numerator = numerator;
+        this.denominator = denominator;
+    }
+    
+    /**
+     * Constructor for input values
+     * @param denominator of the fraction
+     */
+    public BigFraction(BigInteger denominator) {
+        this.numerator = BigInteger.ONE;
+        this.denominator = denominator;
+    }
+
+    /**
+     * Method to get the numerator
+     * @return numerator of the fraction
+     */
+    public BigInteger GetNumerator() {
+    	return this.numerator;
+    }
+    
+    /**
+     * Method to get the denominator
+     * @return denominator of the fraction
+     */
+    public BigInteger GetDenominator() {
+    	return this.denominator;
+    }
+    
+    /**
+     * Method to redefine the numerator
+     * @param numerator of the fraction
+     */
+    public void SetNumerator(BigInteger numerator) {
+    	this.numerator = numerator;
+    }
+    
+    
+    /**
+     * Method to redefine the denominator
+     * @param denominator of the fraction
+     */
+    public void SetDenominator(BigInteger denominator) {
+    	this.denominator = denominator;
+    }
+    
+    /**
+     * Method toString for correct representation of class instances
+     * @return String with input values and result
+     */
+    public String toString() {
+        return this.numerator + "/" + this.denominator;
+    }
+
+    /**
+     * Function for adding two fractions
+     * @param arg1 Numerator and denominator of two fractions
+     * @return Result of adding two fractions (numerator and denominator) + initial values of the arg parameter
+     */
+    public BigFraction Addition(BigFraction arg) {
+        answer.numerator = (arg.numerator.multiply(this.denominator)).add(this.numerator.multiply(arg.denominator));
+        answer.denominator = arg.denominator.multiply(this.denominator);
+        return Reduction(new BigFraction(answer.numerator, answer.denominator));
+    }
+
+    /**
+     * Function for subtracting two fractions
+     * @param arg1 Numerator and denominator of two fractions
+     * @return Result of subtracting two fractions (numerator and denominator) + initial values of the arg parameter
+     */
+    public BigFraction Subtraction(BigFraction arg) {
+        answer.numerator = (this.numerator.multiply(arg.denominator)).subtract(arg.numerator.multiply(this.denominator));
+        answer.denominator = this.denominator.multiply(arg.denominator);
+        return Reduction(answer);
+    }
+
+
+    /**
+     * Function for multiplication two fractions
+     * @param arg Numerator and denominator of two fractions
+     * @return Result of multiplication two fractions (numerator and denominator) + initial values of the arg parameter
+     */
+    public BigFraction Multiplication(BigFraction arg) {
+        answer.numerator = arg.numerator.multiply(this.numerator);
+        answer.denominator = arg.denominator.multiply(this.denominator);
+        return Reduction(answer);
+    }
+
+    /**
+     * Function for division two fractions
+     * @param arg Numerator and denominator of two fractions
+     * @return Result of division two fractions (numerator and denominator) + initial values of the arg parameter
+     */
+    public BigFraction Division(BigFraction arg) {
+        answer.numerator = this.numerator.multiply(arg.denominator);
+        answer.denominator = this.denominator.multiply(arg.numerator);
+        return Reduction(answer);
+    }
+
+    /**
+     * Function for reducing fractions
+     * @param arg Numerator and denominator of two fractions
+     * @return Reduced numerators and denominators of operands and result
+     */
+    public BigFraction Reduction(BigFraction arg) {
+    	BigInteger commonDiv = arg.numerator.gcd(arg.denominator);
+        arg.numerator = arg.numerator.divide(commonDiv);
+        arg.denominator = arg.denominator.divide(commonDiv);
+        return arg;
+    }
+}

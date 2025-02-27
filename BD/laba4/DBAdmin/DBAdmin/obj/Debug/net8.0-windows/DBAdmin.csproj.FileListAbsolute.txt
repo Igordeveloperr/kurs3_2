@@ -1,0 +1,79 @@
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\DBAdmin.exe
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\DBAdmin.deps.json
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\DBAdmin.runtimeconfig.json
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\DBAdmin.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\DBAdmin.pdb
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Npgsql.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\System.Diagnostics.DiagnosticSource.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.csproj.AssemblyReference.cache
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.Form1.resources
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.csproj.GenerateResource.cache
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.AssemblyInfoInputs.cache
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.AssemblyInfo.cs
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.csproj.CoreCompileInputs.cache
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.csproj.Up2Date
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\refint\DBAdmin.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.pdb
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.genruntimeconfig.cache
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\ref\DBAdmin.dll
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.CreateRequestForm.resources
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.Properties.Resources.resources
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.UserCreateForm.resources
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.ApartmentCreateForm.resources
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.RequestUpdateForm.resources
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\DB\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.RequestViewForm.resources
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.csproj.AssemblyReference.cache
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\refint\DBAdmin.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.pdb
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\DBAdmin.exe
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\DBAdmin.deps.json
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\DBAdmin.runtimeconfig.json
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\DBAdmin.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\DBAdmin.pdb
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Npgsql.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\bin\Debug\net8.0-windows\System.Diagnostics.DiagnosticSource.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.ApartmentCreateForm.resources
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.CreateRequestForm.resources
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.Form1.resources
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.Properties.Resources.resources
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.RequestUpdateForm.resources
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.RequestViewForm.resources
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.UserCreateForm.resources
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.csproj.GenerateResource.cache
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.AssemblyInfoInputs.cache
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.AssemblyInfo.cs
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.csproj.CoreCompileInputs.cache
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.csproj.Up2Date
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.genruntimeconfig.cache
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\ref\DBAdmin.dll
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\BD\laba4\DBAdmin\DBAdmin\obj\Debug\net8.0-windows\DBAdmin.ConfirmDeletele.resources

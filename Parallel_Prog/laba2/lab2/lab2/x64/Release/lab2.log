@@ -1,0 +1,13 @@
+﻿  lab2.cpp
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\lab2\lab2.cpp(19,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\lab2\lab2.cpp(59,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\lab2\lab2.cpp(75,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\lab2\lab2.cpp(169,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\lab2\lab2.cpp(244,18): warning C4244: аргумент: преобразование "const double" в "const unsigned __int64", возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\lab2\lab2.cpp(245,18): warning C4244: аргумент: преобразование "const double" в "const unsigned __int64", возможна потеря данных
+  Создание кода
+  2 of 226 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  lab2.vcxproj -> C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\x64\Release\lab2.exe

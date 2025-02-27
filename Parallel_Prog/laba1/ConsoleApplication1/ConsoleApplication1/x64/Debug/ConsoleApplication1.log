@@ -1,0 +1,9 @@
+﻿  ConsoleApplication1.cpp
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba1\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(17,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba1\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(18,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba1\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(43,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba1\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(125,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba1\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(136,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba1\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(210,18): warning C4244: аргумент: преобразование "const double" в "const unsigned __int64", возможна потеря данных
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba1\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(211,18): warning C4244: аргумент: преобразование "const double" в "const unsigned __int64", возможна потеря данных
+  ConsoleApplication1.vcxproj -> C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba1\ConsoleApplication1\x64\Debug\ConsoleApplication1.exe
