@@ -14,9 +14,51 @@
 
 using namespace std;
 
+//vector<complex<double>> FFT(const vector<complex<double>>& as) {
+//    long n = as.size();
+//    long k = 0; // Длина n в битах
+//    while ((1 << k) < n) k++;
+//    vector<long> rev(n);
+//    rev[0] = 0;
+//    long high1 = -1;
+//    for (long i = 1; i < n; i++) {
+//        if ((i & (i - 1)) == 0) // Проверка на степень двойки. Если i ей является, то i-1 будет состоять из кучи единиц.
+//            high1++;
+//        rev[i] = rev[i ^ (1 << high1)]; // Переворачиваем остаток
+//        rev[i] |= (1 << (k - high1 - 1)); // Добавляем старший бит
+//    }
+//
+//    vector<complex<double>> roots(n);
+//    for (long i = 0; i < n; i++) {
+//        double alpha = 2 * M_PI * i / n;
+//        roots[i] = complex<double>(cos(alpha), sin(alpha));
+//    }
+//
+//    vector<complex<double>> cur(n);
+//    for (long i = 0; i < n; i++)
+//        cur[i] = as[rev[i]];
+//
+//    for (long len = 1; len < n; len <<= 1) {
+//        vector<complex<double>> ncur(n);
+//        long rstep = roots.size() / (len * 2);
+//        for (long pdest = 0; pdest < n;) {
+//            long p1 = pdest;
+//            for (long i = 0; i < len; i++) {
+//                complex<double> val = roots[i * rstep] * cur[p1 + len];
+//                ncur[pdest] = cur[p1] + val;
+//                ncur[pdest + len] = cur[p1] - val;
+//                pdest++, p1++;
+//            }
+//            pdest += len;
+//        }
+//        cur.swap(ncur);
+//    }
+//    return cur;
+//}
+
 // прямое преобразование Фурье
 vector<complex<double>> FFT(const vector<complex<double>>& vect) {
-    int n = vect.size();
+    long n = vect.size();
     // Выход из рекурсии - преобразование Фурье для одного элемента просто равно этому элементу
     if (n == 1) {
         return vector<complex<double>>(1, vect[0]);
@@ -25,7 +67,7 @@ vector<complex<double>> FFT(const vector<complex<double>>& vect) {
     // вектор для комплексных экспонент
     vector<complex<double>> w(n);
     // вычисление комплексных экспонент
-    for (int i = 0; i < n; i++) {
+    for (long i = 0; i < n; i++) {
         // α=2π⋅x/n - вычисление полярного угла
         double alpha = 2 * M_PI * i / n;
         // ωi=cosα+i⋅sinα - корень из 1
@@ -36,7 +78,7 @@ vector<complex<double>> FFT(const vector<complex<double>>& vect) {
     vector<complex<double>> A(n / 2); // четные
     vector<complex<double>> B(n / 2); // нечетные
     // заполнение вектороф коэффицентами полинома
-    for (int i = 0; i < n / 2; i++) {
+    for (long i = 0; i < n / 2; i++) {
         A[i] = vect[i * 2];
         B[i] = vect[i * 2 + 1];
     }
@@ -46,7 +88,7 @@ vector<complex<double>> FFT(const vector<complex<double>>& vect) {
     vector<complex<double>> Bv = FFT(B);
 
     vector<complex<double>> res(n);
-    for (int i = 0; i < n; i++) {
+    for (long i = 0; i < n; i++) {
         // P(ωi)=A(ω2i)+ωi⋅B(ω2i) - значение преобразования Фурье для частоты ωi
         res[i] = Av[i % (n / 2)] + w[i] * Bv[i % (n / 2)];
     }
@@ -56,7 +98,7 @@ vector<complex<double>> FFT(const vector<complex<double>>& vect) {
 
 // обратное преобразование Фурье
 void IFFT(vector<complex<double>>& x) {
-    int N = x.size();
+    long N = x.size();
     // реализация комплексного сопряжения -> a+ib = a-ib
     for (auto& el : x) el = conj(el);
     // Применяем FFT к комплексно-сопряженным элементам
@@ -65,90 +107,47 @@ void IFFT(vector<complex<double>>& x) {
     for (auto& el : x) el = conj(el) / static_cast<double>(N);
 }
 
-// Вспомогательная функция для выполнения FFT в потоке
-void ComputeFFT(const vector<complex<double>>& input, vector<complex<double>>& output) {
-    output = FFT(input);
-}
-
-// умножение полиномов с применением быстрого преобразования
-vector<double> FFTMult(const vector<double>& p1, const vector<double>& p2) {
-    int n = p1.size() + p2.size() - 1;
-    int size = 1;
+// умножение полиномов с применением быстрого преобразования 2 потока
+vector<long> FFTMult(const vector<double>& p1, const vector<double>& p2) {
+    long n = p1.size() + p2.size() - 1;
+    long size = 1;
     // корректировка длины к степени двойки
-    while (size < n) size <<= 1;  // Даем размеры 2, 4, 8, 16, ...
+    while (size < n) size <<= 1; // Даем размеры 2, 4, 8, 16
 
     vector<complex<double>> f1(size), f2(size);
 
     // переход к комплексным числам
-    for (size_t i = 0; i < p1.size(); ++i) {
+    for (long i = 0; i < p1.size(); ++i) {
         f1[i] = complex<double>(p1[i], 0);
     }
-    for (size_t i = 0; i < p2.size(); ++i) {
+    for (long i = 0; i < p2.size(); ++i) {
         f2[i] = complex<double>(p2[i], 0);
     }
 
-    // Выполнение FFT
-    //vector<complex<double>> resF1 = FFT(f1);
-    //vector<complex<double>> resF2 = FFT(f2);
     // Векторы для результатов FFT
     vector<complex<double>> resF1(size);
     vector<complex<double>> resF2(size);
-    //resF1 = FFT(f1);
-    //resF2 = FFT(f2);
-        // Создаем два потока для параллельного выполнения FFT(f1) и FFT(f2)
-    //std::thread thread1(ComputeFFT, cref(f1), ref(resF1));
-    //std::thread thread2(ComputeFFT, cref(f2), ref(resF2));
 
-    //// Ожидаем завершения потоков
-    //thread1.join();
-    //thread2.join();
-    //#pragma omp parallel
-    //{
-    //    FFT(f1);
-    //    resF1 = f1;
-    //    #pragma omp critical (cout)
-    //    {
-    //        std::cout << "value 111111111" << std::endl;
-    //    }
-    //}
-    //#pragma omp parallel
-    //{
-    //    FFT(f2);
-    //    resF2 = f2;
-    //    #pragma omp critical (cout)
-    //    {
-    //        std::cout << "value 2222222" << std::endl;
-    //    }
-    //}
-
+    omp_set_num_threads(2);
     #pragma omp parallel
     {
+        // разделение работы между потоками
         #pragma omp sections
         {
-            #pragma omp section 
+            #pragma omp section
             {
-                FFT(f1);
-                resF1 = f1;
-                #pragma omp critical (cout)
-                {
-                    std::cout << "value 111111111" << std::endl;
-                }
+                resF1 = FFT(f1);
             }
             #pragma omp section
             {
-                FFT(f2);
-                resF2 = f2;
-                #pragma omp critical (cout)
-                {
-                    std::cout << "value 2222222" << std::endl;
-                }
+                resF2 = FFT(f2);
             }
         }
     }
 
-    // Перемножение (суть ускорения
+    // Перемножение (суть ускорения)
     #pragma omp parallel for
-    for (int i = 0; i < size; ++i) {
+    for (long i = 0; i < size; i++) {
         resF1[i] *= resF2[i];
     }
 
@@ -156,49 +155,135 @@ vector<double> FFTMult(const vector<double>& p1, const vector<double>& p2) {
     IFFT(resF1);
 
     //Получение результата
-    vector<double> result(n);
-    for (int i = 0; i < n; ++i) {
+    vector<long> result(n);
+    #pragma omp parallel for
+    for (long i = 0; i < n; i++) {
         result[i] = round(resF1[i].real()); // Округляем до ближайшего целого
     }
 
     return result;
 }
 
+// Умножение полиномов с применением быстрого преобразования (4 потока)
+vector<long> FFTMult4(const vector<double>& p1, const vector<double>& p2, const vector<double>& p3, const vector<double>& p4) {
+    long n = p1.size() + p2.size() + p3.size() + p4.size() - 1;
+    long size = 1;
+    // корректировка длины к степени двойки
+    while (size < n) size <<= 1; // Даем размеры 2, 4, 8, 16
+
+    vector<complex<double>> f1(size/2), f2(size/2), f3(size/2), f4(size/2);
+
+    // переход к комплексным числам
+    for (long i = 0; i < p1.size(); ++i) {
+        f1[i] = complex<double>(p1[i], 0);
+    }
+    for (long i = 0; i < p2.size(); ++i) {
+        f2[i] = complex<double>(p2[i], 0);
+    }
+    for (long i = 0; i < p3.size(); ++i) {
+        f3[i] = complex<double>(p3[i], 0);
+    }
+    for (long i = 0; i < p4.size(); ++i) {
+        f4[i] = complex<double>(p4[i], 0);
+    }
+
+    // Векторы для результатов FFT
+    vector<complex<double>> resF1(size);
+    vector<complex<double>> resF2(size);
+    vector<complex<double>> resF3(size);
+    vector<complex<double>> resF4(size);
+
+    omp_set_num_threads(4);
+    #pragma omp parallel
+    {
+        // разделение работы между потоками
+        #pragma omp sections
+        {
+            #pragma omp section
+            {
+                resF1 = FFT(f1);
+            }
+            #pragma omp section
+            {
+                resF2 = FFT(f2);
+            }
+            #pragma omp section
+            {
+                resF3 = FFT(f3);
+            }
+            #pragma omp section
+            {
+                resF4 = FFT(f4);
+            }
+        }
+    }
+
+    // Предположим, что resF1 и resF3 имеют размер size / 2
+    vector<complex<double>> resF_cmb1(size);
+    vector<complex<double>> resF_cmb2(size);
+
+    // Объединение resF1 и resF3 в resF_combined
+    //#pragma omp parallel for
+    for (long i = 0; i < size / 2; i++) {
+        resF_cmb1[i] = resF1[i];          // Первая половина (resF1)
+        resF_cmb1[i + size / 2] = resF3[i]; // Вторая половина (resF3)
+    }
+
+    //#pragma omp parallel for
+    for (long i = 0; i < size / 2; i++) {
+        resF_cmb2[i] = resF2[i];          // Первая половина (resF1)
+        resF_cmb2[i + size / 2] = resF4[i]; // Вторая половина (resF3)
+    }
+
+    // Перемножение (суть ускорения)
+    //#pragma omp parallel for
+    for (long i = 0; i < size; i++) {
+        resF_cmb1[i] *= resF_cmb2[i];
+    }
+
+    // Выполнение IFFT
+    IFFT(resF_cmb1);
+
+    //Получение результата
+    vector<long> result(n);
+    //#pragma omp parallel for
+    for (long i = 0; i < n; i++) {
+        result[i] = round(resF_cmb1[i].real()); // Округляем до ближайшего целого
+    }
+
+    return result;
+}
+
 // перемножение полиномов без паралллельки
-vector<double> MultPoly(vector<double>& p1, vector<double>& p2) {
-    int n = p1.size() + p2.size() - 1;
-    int size = 1;
+vector<long> MultPoly(vector<double>& p1, vector<double>& p2) {
+    long n = p1.size() + p2.size() - 1;
+    long size = 1;
     // корректировка длины к степени двойки
     while (size < n) size <<= 1;  // Даем размеры 2, 4, 8, 16, ...
 
     vector<complex<double>> f1(size), f2(size);
 
     // переход к комплексным числам
-    for (size_t i = 0; i < p1.size(); ++i) {
+    for (long i = 0; i < p1.size(); ++i) {
         f1[i] = complex<double>(p1[i], 0);
     }
-    for (size_t i = 0; i < p2.size(); ++i) {
+    for (long i = 0; i < p2.size(); ++i) {
         f2[i] = complex<double>(p2[i], 0);
     }
-
     // Выполнение FFT
     vector<complex<double>> resF1 = FFT(f1);
     vector<complex<double>> resF2 = FFT(f2);
-
     // Перемножение (суть ускорения)
-    for (int i = 0; i < size; ++i) {
+    for (long i = 0; i < size; ++i) {
         resF1[i] *= resF2[i];
     }
-
     // Выполнение IFFT
     IFFT(resF1);
-
     //Получение результата
-    vector<double> result(n);
-    for (int i = 0; i < n; ++i) {
+    vector<long> result(n);
+    for (long i = 0; i < n; ++i) {
         result[i] = round(resF1[i].real()); // Округляем до ближайшего целого
     }
-
     return result;
 }
 
@@ -207,15 +292,6 @@ void PrintResult(vector<double>& data) {
     cout << "Mult result: ";
     for (size_t i = 0; i < data.size(); i++) {
         cout << data[i] << (i < data.size() - 1 ? " + " : " ");
-        //if (data[i] >= 0)
-        //{
-        //    cout << data[i] << (i < data.size() - 1 ? " + " : " ");
-        //}
-        //else
-        //{
-        //    cout << data[i];
-        //}
-
     }
     cout << std::endl;
 }
@@ -234,11 +310,34 @@ double generateRandomDouble(double lower, double upper) {
     return dis(gen);
 }
 
+// проверка результата
+void checkAnswers(const vector<long> vect1, const vector<long> vect2) {
+    bool allOk = true;
+    long badNum1, badNum2;
+    for (long i = 0; i < vect1.size(); i++) {
+        if (vect1[i] != vect2[i]) {
+            allOk = false;
+            badNum1 = vect1[i];
+            badNum2 = vect2[i];
+            break;
+        }
+    }
+    if (allOk) {
+        cout << "Answer is Ok" << endl;
+        return;
+    }
+    cout << "Bad answer!!!" << endl;
+    cout << badNum1 << " != " << badNum2 << endl;
+}
 
 int main()
 {
     // Входные данные
-    const double LEN = pow(2, 22);
+    const long LEN = pow(2, 16);
+    //vector<double> poly1 = { 1, 2 };
+    //vector<double> poly2 = { 5, 6 };
+    //vector<double> poly3 = { 3, 4 };
+    //vector<double> poly4 = { 7, 8 };
     vector<double> poly1;
     vector<double> poly2;
     poly1.resize(LEN);
@@ -247,27 +346,27 @@ int main()
     // заполнение полиномов
     for (long i = 0; i < LEN; i++)
     {
-        poly1[i] = generateRandomDouble(-10000000, 10000000);
-        poly2[i] = generateRandomDouble(-10000000, 10000000);
+        poly1[i] = generateRandomDouble(1, 100);
+        poly2[i] = generateRandomDouble(1, 100);
     }
 
     cout << "gen end" << endl;
 
     // Умножение полиномов с применением быстрого преобразования 
     auto start = chrono::high_resolution_clock::now();
-    vector<double> res = FFTMult(poly1, poly2);
+    vector<long> res1 = FFTMult(poly1, poly2);
     auto end = chrono::high_resolution_clock::now();
     cout << "FFT paral -> ";
     chrono::duration<double> t1 = PrintTime(end - start);
-    //PrintResult(res);
 
 
     // Классическое умножение полиномов
     start = chrono::high_resolution_clock::now();
-    res = MultPoly(poly1, poly2);
+    vector<long> res2 = MultPoly(poly1, poly2);
     end = chrono::high_resolution_clock::now();
     cout << "FFT def -> ";
     chrono::duration<double> t2 = PrintTime(end - start);
-    //PrintResult(res);
     cout << "k = " << t2 / t1 << endl;
+
+    checkAnswers(res1, res2);
 }

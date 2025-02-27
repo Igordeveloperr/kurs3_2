@@ -1,8 +1,1 @@
-﻿  lab2.cpp
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\lab2\lab2.cpp(19,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\lab2\lab2.cpp(59,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\lab2\lab2.cpp(75,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\lab2\lab2.cpp(152,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\lab2\lab2.cpp(227,18): warning C4244: аргумент: преобразование "const double" в "const unsigned __int64", возможна потеря данных
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\lab2\lab2.cpp(228,18): warning C4244: аргумент: преобразование "const double" в "const unsigned __int64", возможна потеря данных
-  lab2.vcxproj -> C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba2\lab2\x64\Debug\lab2.exe
+﻿cl : командная строка  error D8016: несовместимые параметры командной строки "/O2" и "/RTC1"
