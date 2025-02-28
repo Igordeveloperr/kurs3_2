@@ -14,7 +14,7 @@
 
 using namespace std;
 
-const int NUM_THREADS = 2;
+const int NUM_THREADS = 8;
 // прямое преобразование Фурье
 vector<complex<double>> FFT(const vector<complex<double>>& vect) {
     long n = vect.size();
@@ -280,7 +280,7 @@ int main()
     poly2.resize(LEN);
 
     // заполнение полиномов
-    #pragma omp parallel for schedule(static) num_threads(6)
+    #pragma omp parallel for schedule(static) num_threads(8)
     for (long i = 0; i < LEN; i++)
     {
         //poly1[i] = generateRandomDouble(1, 100);
