@@ -14,7 +14,7 @@
 
 using namespace std;
 
-const int NUM_THREADS = 2;
+const int NUM_THREADS = 8;
 // прямое преобразование Фурье
 vector<complex<double>> FFT(const vector<complex<double>>& vect) {
     long n = vect.size();
@@ -218,7 +218,7 @@ void checkAnswers(const vector<long> vect1, const vector<long> vect2) {
 int main()
 {
     // Входные данные
-    const long LEN = pow(2, 22);
+    const long LEN = pow(2, 25);
     //vector<double> poly1 = { 1, 2 };
     //vector<double> poly2 = { 5, 6 };
     //vector<double> poly3 = { 3, 4 };
@@ -229,6 +229,7 @@ int main()
     poly2.resize(LEN);
 
     // заполнение полиномов
+    #pragma omp parallel for schedule(static) num_threads(6)
     for (long i = 0; i < LEN; i++)
     {
         poly1[i] = generateRandomDouble(1, 100);
