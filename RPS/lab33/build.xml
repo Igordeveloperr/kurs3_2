@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="lab33">
+	<target name="hello-world">
+		<echo>Hello world!</echo>
+	</target>
+	
+	<target name="clean" description="Deleting unnecessary files">
+		<delete dir="build"/>
+	</target>
+	
+	<target name="compile" depends="clean" description="Compiling classes">
+		<mkdir dir="build/classes"/>
+		<javac srcdir="src/lab33" destdir="build/classes" includeantruntime="false"/>
+	</target>
+	
+	<target name="jar" depends="compile" description="Making jar file">
+		<mkdir dir="build/jar"/>
+		<jar destfile="build/jar/Main.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-Class" value="lab33.Main"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="run" depends="jar" description="Launching the program">
+		<java jar="build/jar/Main.jar" fork="true"/>
+	</target>
+	
+</project>
