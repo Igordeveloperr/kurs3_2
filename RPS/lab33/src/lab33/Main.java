@@ -6,7 +6,7 @@ import java.awt.*;
 public class Main {
 
     public static void main(String[] args) {
-    	// test comments
+    	// test comments 1
         BigFractionCalculatorGUI app = new BigFractionCalculatorGUI();
         app.setVisible(true);
     }
