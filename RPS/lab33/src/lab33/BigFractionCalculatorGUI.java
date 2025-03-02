@@ -272,11 +272,18 @@ public class BigFractionCalculatorGUI extends JFrame {
 
                 } else {
                 	if(line.length() < MAX_NUM_LEN) {
-                		System.out.println(fraction_flag);
-                        if (e.getSource() == zero && fraction_flag != true) {
+//                		System.out.println(line.length());
+                        if (e.getSource() == zero && fraction_flag == false && operation_counter != 4) {
                             text_field.setText(line + "0");
 
-                        } 
+                        }
+                        else if (e.getSource() == zero && fraction_flag == false && operation_counter == 4 && line.length() > 0) {
+                            text_field.setText(line + "0");
+
+                        }
+                        else if (e.getSource() == zero && fraction_flag==true && line.length() > 0) {
+                        	text_field.setText(line + "0");
+                        }
                         else if (e.getSource() == one) {
 
                             text_field.setText(line + "1");
