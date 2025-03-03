@@ -10,7 +10,7 @@ public class BigFraction {
     BigInteger numerator = BigInteger.valueOf(1);
     BigInteger denominator = BigInteger.valueOf(1);
     int w1 = 1;
-    double r = 33;
+
     /**
      * Constructor for input values
      * @param numerator Numerator of the first fraction
