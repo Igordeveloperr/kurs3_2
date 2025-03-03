@@ -10,6 +10,7 @@ public class BigFraction {
     BigInteger numerator = BigInteger.valueOf(1);
     BigInteger denominator = BigInteger.valueOf(1);
     int w1 = 1;
+    double r = 133;
 
     /**
      * Constructor for input values
