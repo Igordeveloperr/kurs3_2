@@ -9,7 +9,7 @@ public class BigFraction {
      */
     BigInteger numerator = BigInteger.valueOf(1);
     BigInteger denominator = BigInteger.valueOf(1);
-    double w1 = 1;
+    int w1 = 1;
 
     /**
      * Constructor for input values
