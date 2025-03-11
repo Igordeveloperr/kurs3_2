@@ -16,7 +16,7 @@
 
 using namespace std;
 
-const int NUM_THREADS = 4;
+const int NUM_THREADS = 2;
 // прямое преобразование Фурье
 vector<complex<double>> FFT(const vector<complex<double>>& vect) {
     long n = vect.size();
@@ -75,72 +75,72 @@ void IFFT(vector<complex<double>>& x) {
 }
 
 // умножение полиномов с применением быстрого преобразования openMp
-//vector<long> FFTMultOpenMp(const vector<double>& p1, const vector<double>& p2) {
-//    long n = p1.size() + p2.size() - 1;
-//    long size = 1;
-//    // корректировка длины к степени двойки
-//    while (size < n) size <<= 1; // Даем размеры 2, 4, 8, 16
-//
-//    vector<complex<double>> f1(size), f2(size);
-//
-//#pragma omp parallel num_threads(NUM_THREADS)
-//    {
-//        // переход к комплексным числам
-//#pragma omp for
-//        for (long i = 0; i < p1.size(); ++i) {
-//            f1[i] = complex<double>(p1[i], 0);
-//        }
-//
-//#pragma omp for
-//        for (long i = 0; i < p2.size(); ++i) {
-//            f2[i] = complex<double>(p2[i], 0);
-//        }
-//    }
-//
-//    // Векторы для результатов FFT
-//    vector<complex<double>> resF1(size);
-//    vector<complex<double>> resF2(size);
-//
-//#pragma omp parallel
-//    {
-//        // разделение работы между потоками
-//#pragma omp sections
-//        {
-//#pragma omp section
-//            {
-//                resF1 = FFT(f1);
-//            }
-//#pragma omp section
-//            {
-//                resF2 = FFT(f2);
-//            }
-//        }
-//    }
-//
-//    // Перемножение (суть ускорения)
-//#pragma omp parallel num_threads(NUM_THREADS)
-//    {
-//#pragma omp for
-//        for (long i = 0; i < size; i++) {
-//            resF1[i] *= resF2[i];
-//        }
-//    }
-//
-//    // Выполнение IFFT
-//    IFFT(resF1);
-//
-//    //Получение результата
-//    vector<long> result(n);
-//#pragma omp parallel num_threads(NUM_THREADS)
-//    {
-//#pragma omp for
-//        for (long i = 0; i < n; i++) {
-//            result[i] = round(resF1[i].real()); // Округляем до ближайшего целого
-//        }
-//    }
-//
-//    return result;
-//}
+vector<long> FFTMultOpenMp(const vector<double>& p1, const vector<double>& p2) {
+    long n = p1.size() + p2.size() - 1;
+    long size = 1;
+    // корректировка длины к степени двойки
+    while (size < n) size <<= 1; // Даем размеры 2, 4, 8, 16
+
+    vector<complex<double>> f1(size), f2(size);
+
+    #pragma omp parallel num_threads(NUM_THREADS)
+    {
+        // переход к комплексным числам
+        #pragma omp for
+        for (long i = 0; i < p1.size(); ++i) {
+            f1[i] = complex<double>(p1[i], 0);
+        }
+
+        #pragma omp for
+        for (long i = 0; i < p2.size(); ++i) {
+            f2[i] = complex<double>(p2[i], 0);
+        }
+    }
+
+    // Векторы для результатов FFT
+    vector<complex<double>> resF1(size);
+    vector<complex<double>> resF2(size);
+
+    #pragma omp parallel
+    {
+        // разделение работы между потоками
+        #pragma omp sections
+        {
+            #pragma omp section
+            {
+                resF1 = FFT(f1);
+            }
+            #pragma omp section
+            {
+                resF2 = FFT(f2);
+            }
+        }
+    }
+
+    // Перемножение (суть ускорения)
+    #pragma omp parallel num_threads(NUM_THREADS)
+    {
+        #pragma omp for
+        for (long i = 0; i < size; i++) {
+            resF1[i] *= resF2[i];
+        }
+    }
+
+    // Выполнение IFFT
+    IFFT(resF1);
+
+    //Получение результата
+    vector<long> result(n);
+    #pragma omp parallel num_threads(NUM_THREADS)
+    {
+        #pragma omp for
+        for (long i = 0; i < n; i++) {
+            result[i] = round(resF1[i].real()); // Округляем до ближайшего целого
+        }
+    }
+
+    return result;
+}
 
 // умножение полиномов с применением быстрого преобразования mpi
 vector<long> FFTMultMpi(const vector<double>& p1, const vector<double>& p2) {
@@ -295,7 +295,7 @@ int main(int argc, char** argv)
     MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
 
     // Входные данные
-    const long LEN = pow(2, 16);
+    const long LEN = pow(2, 21);
     vector<double> poly1;
     vector<double> poly2;
     poly1.resize(LEN);
@@ -318,24 +318,32 @@ int main(int argc, char** argv)
     MPI_Bcast(poly1.data(), LEN, MPI_DOUBLE, 0, MPI_COMM_WORLD);
     MPI_Bcast(poly2.data(), LEN, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
-    // Умножение полиномов с применением быстрого преобразования 
+    // Умножение полиномов с применением MPI
     auto start = chrono::high_resolution_clock::now();
     vector<long> res1 = FFTMultMpi(poly1, poly2);
     auto end = chrono::high_resolution_clock::now();
 
     if (rank == 0) {
-        std::cout << "FFT paral -> ";
+        std::cout << "FFT paral MPI -> ";
         chrono::duration<double> t1 = PrintTime(end - start);
+
+        // Умножение полиномов с применением OpenMp
+        start = chrono::high_resolution_clock::now();
+        vector<long> res2 = FFTMultOpenMp(poly1, poly2);
+        end = chrono::high_resolution_clock::now();
+        std::cout << "FFT paral OpenMp -> ";
+        chrono::duration<double> t2 = PrintTime(end - start);
 
         // Классическое умножение полиномов
         start = chrono::high_resolution_clock::now();
-        vector<long> res2 = MultPoly(poly1, poly2);
+        vector<long> res3 = MultPoly(poly1, poly2);
         end = chrono::high_resolution_clock::now();
         std::cout << "FFT def -> ";
-        chrono::duration<double> t2 = PrintTime(end - start);
-        std::cout << "k = " << t2 / t1 << endl;
+        chrono::duration<double> t3 = PrintTime(end - start);
+        std::cout << "k_mpi = " << t3 / t1 << endl;
+        std::cout << "k_openMp = " << t3 / t2 << endl;
 
-        checkAnswers(res1, res2);
+        checkAnswers(res1, res3);
     }
     //printf("MPI thread = %d; total threads: %d\n", rank, numtasks);
 
