@@ -295,7 +295,7 @@ int main(int argc, char** argv)
     MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
 
     // Входные данные
-    const long LEN = pow(2, 21);
+    const long LEN = pow(2, 23);
     vector<double> poly1;
     vector<double> poly2;
     poly1.resize(LEN);
