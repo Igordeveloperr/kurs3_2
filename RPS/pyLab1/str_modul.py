@@ -1,25 +1,42 @@
 import re
 import string
 
-# count num of words
+# подсчет кол-ва слов
 number_of_words = lambda line: len(re.findall(r'\b\w+\b', line))
 
-# check str is palyndrom or not
+# проверка является ли строка палиндромом
 is_palindrome = lambda s: s.strip() != "" and s.replace(" ", "").lower() == s.replace(" ", "").lower()[::-1]
 
-# remove duplicate words
-remove_duplicates = lambda s: ' '.join(
-    filter(
-        lambda x, seen=set(): not (x in seen or seen.add(x)),
-        ''.join(char if char not in string.punctuation else ' ' for char in s).split()
+# удаление повторяющихся слов
+def remove_duplicates(s):
+    seen = set()  # Множество для отслеживания уже встреченных слов
+    result = []   # Список для хранения результата
+
+    # Разделяем строку на токены (слова и не-слова, включая пунктуацию)
+    tokens = re.findall(r'\w+|\W+', s)
+
+    # Лямбда-функция для обработки токенов
+    process_token = lambda token: (
+        token if not token.isalpha() or token.lower() not in seen else ''
     )
-)
 
+    # Применяем лямбда-функцию к каждому токену
+    for token in tokens:
+        if token.isalpha():  # Если токен — слово
+            lower_token = token.lower()  # Приводим к нижнему регистру
+            if lower_token not in seen:  # Если слово еще не встречалось
+                seen.add(lower_token)    # Добавляем в множество
+                result.append(token)    # Добавляем в результат
+        else:  # Если токен — не слово (пунктуация или пробел)
+            result.append(token)  # Добавляем в результат как есть
 
-# all words start with upper case
+    # Собираем строку из токенов
+    return ''.join(result)
+
+# все слова в строке с заглавной
 capitalize_words = lambda s: ''.join(word.capitalize() for word in re.findall(r'\w+|\W+', s))
 
-# console menu
+# менюшка
 def menu():
     line = input("Введите строку: ")
     print("1.Проверка на палиндром")
