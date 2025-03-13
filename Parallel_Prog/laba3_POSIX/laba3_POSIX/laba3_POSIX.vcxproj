@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\pthreads\Pre-built.2\include;$(IncludePath)</IncludePath>
-    <ReferencePath>C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\pthreads\Pre-built.2\lib;$(ReferencePath)</ReferencePath>
+    <IncludePath>C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\pthreads\Pre-built.2\include;$(IncludePath)</IncludePath>
+    <ReferencePath>C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\pthreads\Pre-built.2\lib;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -130,7 +130,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\pthreads\Pre-built.2\lib\x64\pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\pthreads\Pre-built.2\lib\x64\pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

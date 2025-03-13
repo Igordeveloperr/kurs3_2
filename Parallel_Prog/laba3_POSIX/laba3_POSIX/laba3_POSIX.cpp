@@ -286,7 +286,7 @@ void checkAnswers(const vector<long> vect1, const vector<long> vect2) {
 int main()
 {
     // Входные данные
-    const long LEN = pow(2, 20);
+    const long LEN = pow(2, 19);
     vector<double> poly1;
     vector<double> poly2;
     poly1.resize(LEN);
