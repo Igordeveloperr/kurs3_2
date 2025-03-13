@@ -1,44 +1,44 @@
-# число слов в строке
-def number_of_words(line):
-    return sum(map(lambda x : int(x.isalpha()), line.split()))
+import re
+import string
 
-# кол-во вхождений подстроки в строку
-def number_of_defined_characters(line,symbol):
-    return line.count(symbol)
+# count num of words
+number_of_words = lambda line: len(re.findall(r'\b\w+\b', line))
 
-# число символов в строке
-def number_of_symbols(line):
-    return len(line)
+# check str is palyndrom or not
+is_palindrome = lambda s: s.strip() != "" and s.replace(" ", "").lower() == s.replace(" ", "").lower()[::-1]
 
-# кол-во уникальных символов
-def number_of_universal_symbols(line):
-    return len(set(line))
+# remove duplicate words
+remove_duplicates = lambda s: ' '.join(
+    filter(
+        lambda x, seen=set(): not (x in seen or seen.add(x)),
+        ''.join(char if char not in string.punctuation else ' ' for char in s).split()
+    )
+)
 
-# консольная менюшка
+
+# all words start with upper case
+capitalize_words = lambda s: ''.join(word.capitalize() for word in re.findall(r'\w+|\W+', s))
+
+# console menu
 def menu():
     line = input("Введите строку: ")
-    print("1.Кол-во символов")
+    print("1.Проверка на палиндром")
     print("2.Кол-во слов")
-    print("3.Кол-во вхождений подстроки в строку")
-    print("4.Кол-во уникальных символов")
+    print("3.Удалить повтор.слова")
+    print("4.Формат заголовка")
     print("5.Выход")
     what_to_do = input("Введите номер команды: ")
     if what_to_do == "1":
-        count = number_of_symbols(line)
-        print("Кол-во символов: " + str(count))
+        print("Строка палиндром: " + ("Да" if is_palindrome(line) else "Нет"))
         menu()
     elif what_to_do == "2":
-        count = number_of_words(line)
-        print("Кол-во слов: " + str(count))
+        print("Кол-во слов: " + str(number_of_words(line)))
         menu()
     elif what_to_do == "3":
-        symbol = input("Введите символ для поиска: ")
-        count = number_of_defined_characters(line, symbol)
-        print("Найдено " + str(count) + ' символов "' + symbol + '"')
+        print("Строка без повторений: " + remove_duplicates(line))
         menu()
     elif what_to_do == "4":
-        count = number_of_universal_symbols(line)
-        print("Кол-во уникальных символов: " + str(count))
+        print("Заголовок: " + capitalize_words(line))
         menu()
     elif what_to_do == "5": exit
 
