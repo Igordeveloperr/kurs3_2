@@ -1,0 +1,20 @@
+﻿  laba3_POSIX.cpp
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(18,12): warning C4267: инициализация: преобразование из "size_t" в "long"; возможна потеря данных
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(59,12): warning C4267: инициализация: преобразование из "size_t" в "long"; возможна потеря данных
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(99,12): warning C4267: инициализация: преобразование из "size_t" в "long"; возможна потеря данных
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(114,12): warning C4267: инициализация: преобразование из "size_t" в "long"; возможна потеря данных
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(129,12): warning C4267: инициализация: преобразование из "size_t" в "long"; возможна потеря данных
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(155,26): warning C4244: =: преобразование "double" в "_Ty", возможна потеря данных
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(155,26): warning C4244:         with
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(155,26): warning C4244:         [
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(155,26): warning C4244:             _Ty=long
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(155,26): warning C4244:         ]
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(162,12): warning C4267: инициализация: преобразование из "size_t" в "long"; возможна потеря данных
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(188,26): warning C4244: =: преобразование "double" в "_Ty", возможна потеря данных
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(188,26): warning C4244:         with
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(188,26): warning C4244:         [
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(188,26): warning C4244:             _Ty=long
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(188,26): warning C4244:         ]
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(239,25): warning C4244: инициализация: преобразование "double" в "long", возможна потеря данных
+C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(239,20): warning C4244: инициализация: преобразование "double" в "const long", возможна потеря данных
+  laba3_POSIX.vcxproj -> C:\Users\RSOTMBOBIK\Desktop\study\3_2\Parallel_Prog\laba3_POSIX\x64\Debug\laba3_POSIX.exe
