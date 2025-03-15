@@ -2,38 +2,34 @@
 C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(22,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
 C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(64,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
 C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(79,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(105,26): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(105,26): warning C4244:         with
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(105,26): warning C4244:         [
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(105,26): warning C4244:             _Ty=long
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(105,26): warning C4244:         ]
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(119,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(165,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(225,26): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(225,26): warning C4244:         with
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(225,26): warning C4244:         [
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(225,26): warning C4244:             _Ty=long
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(225,26): warning C4244:         ]
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(232,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(286,26): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(286,26): warning C4244:         with
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(286,26): warning C4244:         [
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(286,26): warning C4244:             _Ty=long
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(286,26): warning C4244:         ]
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(294,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(353,30): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(353,30): warning C4244:         with
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(353,30): warning C4244:         [
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(353,30): warning C4244:             _Ty=long
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(353,30): warning C4244:         ]
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(362,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(388,26): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(388,26): warning C4244:         with
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(388,26): warning C4244:         [
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(388,26): warning C4244:             _Ty=long
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(388,26): warning C4244:         ]
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(135,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(193,26): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(193,26): warning C4244:         with
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(193,26): warning C4244:         [
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(193,26): warning C4244:             _Ty=long
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(193,26): warning C4244:         ]
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(215,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(269,26): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(269,26): warning C4244:         with
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(269,26): warning C4244:         [
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(269,26): warning C4244:             _Ty=long
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(269,26): warning C4244:         ]
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(276,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(335,30): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(335,30): warning C4244:         with
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(335,30): warning C4244:         [
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(335,30): warning C4244:             _Ty=long
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(335,30): warning C4244:         ]
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(344,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(370,26): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(370,26): warning C4244:         with
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(370,26): warning C4244:         [
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(370,26): warning C4244:             _Ty=long
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(370,26): warning C4244:         ]
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(421,25): warning C4244: 'initializing': conversion from 'double' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\laba3_POSIX\laba3_POSIX.cpp(421,20): warning C4244: 'initializing': conversion from 'double' to 'const long', possible loss of data
   Generating code
-  1 of 241 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+  4 of 296 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
