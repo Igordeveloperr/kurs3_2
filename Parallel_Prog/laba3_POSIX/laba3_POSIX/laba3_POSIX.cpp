@@ -15,7 +15,7 @@
 
 using namespace std;
 
-const int NUM_THREADS = 4;
+const int NUM_THREADS = 2;
 
 // прямое преобразование Фурье
 vector<complex<double>> FFT(const vector<complex<double>>& vect) {
@@ -107,30 +107,103 @@ vector<double> MultPolyExactly(vector<double>& p1, vector<double>& p2) {
     return result;
 }
 
+// Структура для передачи данных в поток
+struct FFTDataMany {
+    vector<double>* p1;
+    vector<double>* p2;
+    vector<double>* output;
+};
+
+
+void* FFTThreadFunc(void* arg) {
+    FFTDataMany* data = (FFTDataMany*)arg;
+    *(data->output) = MultPolyExactly(*(data->p1), *(data->p2));
+    return nullptr;
+}
+
 // Функция для разбиения полинома на два меньших полинома
-pair<vector<double>, vector<double>> splitPolynomial(const vector<double>& p, long k) {
+pair<vector<double>, vector<double>> splitPolynomial2(const vector<double>& p, long k) {
     vector<double> low(p.begin(), p.begin() + k);
     vector<double> high(p.begin() + k, p.end());
     return { low, high };
 }
 
-// Структура для передачи данных в поток
-struct FFTData4 {
-    vector<double>* p1;
-    vector<double>* p2;
-    vector<double>* output;
-    pthread_mutex_t* mutex; // Мьютекс для синхронизации
-};
-
-void* FFTThread4(void* arg) {
-    FFTData4* data = (FFTData4*)arg;
-    //pthread_mutex_lock(data->mutex);
-    *(data->output) = MultPolyExactly(*(data->p1), *(data->p2));
-    //pthread_mutex_unlock(data->mutex);
-    return nullptr;
+// Функция для разбиения полинома на три части
+vector<vector<double>> splitPolynomial3(const vector<double>& p, long k1, long k2) {
+    vector<double> low(p.begin(), p.begin() + k1);
+    vector<double> mid(p.begin() + k1, p.begin() + k2);
+    vector<double> high(p.begin() + k2, p.end());
+    return { low, mid, high };
 }
 
-// Основная функция для умножения полиномов с разбиением
+// Основная функция для умножения полиномов с разбиением на три части
+vector<long> FFTMultPOSIX6(const vector<double>& p1, const vector<double>& p2) {
+    long n = p1.size();
+    long k1 = n / 2;       // Точка разбиения для p1 (две части)
+    long k2 = n / 3;       // Первая точка разбиения для p2 (три части)
+    long k3 = 2 * n / 3;   // Вторая точка разбиения для p2 (три части)
+    long size = 1;
+
+    // Корректировка длины к степени двойки
+    while (size < n) size <<= 1;
+
+    // Разбиваем полином p1 на две части
+    auto p1_split = splitPolynomial2(p1, k1);
+    vector<double> p1_low = p1_split.first;   // Младшие коэффициенты
+    vector<double> p1_high = p1_split.second; // Старшие коэффициенты
+
+    // Разбиваем полином p2 на три части
+    auto p2_split = splitPolynomial3(p2, k2, k3);
+    vector<double> p2_low = p2_split[0];   // Младшие коэффициенты
+    vector<double> p2_mid = p2_split[1];   // Средние коэффициенты
+    vector<double> p2_high = p2_split[2];  // Старшие коэффициенты
+
+    // Создаем структуры для передачи данных в потоки
+    vector<FFTDataMany> thData = {
+        {&p1_low, &p2_low, new vector<double>(size)},
+        {&p1_low, &p2_mid, new vector<double>(size)},
+        {&p1_low, &p2_high, new vector<double>(size)},
+        {&p1_high, &p2_low, new vector<double>(size)},
+        {&p1_high, &p2_mid, new vector<double>(size)},
+        {&p1_high, &p2_high, new vector<double>(size)},
+    };
+
+    // Создаем потоки
+    vector<pthread_t> thList(thData.size());
+    for (size_t i = 0; i < thList.size(); i++) {
+        pthread_create(&thList[i], nullptr, FFTThreadFunc, (void*)&thData[i]);
+    }
+
+    // Ждем завершения потоков
+    for (size_t i = 0; i < thList.size(); i++) {
+        pthread_join(thList[i], nullptr);
+    }
+
+    // Комбинируем результаты
+    vector<double> fracResult(2 * n - 1, 0);
+    long offsets[] = { 0, k2, k3, k1, k1 + k2, k1 + k3 }; // Смещения для комбинирования
+
+    for (size_t i = 0; i < thData.size(); i++) {
+        for (long j = 0; j < thData[i].output->size(); j++) {
+            fracResult[j + offsets[i]] += (*thData[i].output)[j];
+        }
+    }
+
+    for (size_t i = 0; i < thData.size(); i++)
+    {
+        delete thData[i].output;
+    }
+
+    // Округляем результат
+    vector<long> result(fracResult.size());
+    for (long i = 0; i < fracResult.size(); i++) {
+        result[i] = round(fracResult[i]);
+    }
+
+    return result;
+}
+
+// Основная функция для умножения полиномов с разбиением 4 потока
 vector<long> FFTMultPOSIX4(const vector<double>& p1, const vector<double>& p2) {
     long n = p1.size();
     long k = n / 2;
@@ -139,47 +212,47 @@ vector<long> FFTMultPOSIX4(const vector<double>& p1, const vector<double>& p2) {
     while (size < n) size <<= 1;  // Даем размеры 2, 4, 8, 16, ...
 
     // Разбиваем полином p1 на две части: p1_low и p1_high
-    pair<vector<double>, vector<double>> p1_split = splitPolynomial(p1, k);
+    pair<vector<double>, vector<double>> p1_split = splitPolynomial2(p1, k);
     vector<double> p1_low = p1_split.first;   // Младшие коэффициенты
     vector<double> p1_high = p1_split.second; // Старшие коэффициенты
 
     // Разбиваем полином p2 на две части: p2_low и p2_high
-    pair<vector<double>, vector<double>> p2_split = splitPolynomial(p2, k);
+    pair<vector<double>, vector<double>> p2_split = splitPolynomial2(p2, k);
     vector<double> p2_low = p2_split.first;   // Младшие коэффициенты
     vector<double> p2_high = p2_split.second; // Старшие коэффициенты
 
-    // инитим объекты синхронизации
-    pthread_mutex_t mutex;
-    pthread_mutex_init(&mutex, nullptr);
-
     // Создаем структуры для передачи данных в потоки
-    FFTData4 data1 = { &p1_low, &p2_low, new vector<double>(size), &mutex };
-    FFTData4 data2 = { &p1_low, &p2_high, new vector<double>(size), &mutex };
-    FFTData4 data3 = { &p1_high, &p2_low, new vector<double>(size), &mutex };
-    FFTData4 data4 = { &p1_high, &p2_high, new vector<double>(size), &mutex };
-
+    FFTDataMany data1 = { &p1_low, &p2_low, new vector<double>(size) };
+    FFTDataMany data2 = { &p1_low, &p2_high, new vector<double>(size) };
+    FFTDataMany data3 = { &p1_high, &p2_low, new vector<double>(size) };
+    FFTDataMany data4 = { &p1_high, &p2_high, new vector<double>(size) };
+    vector<FFTDataMany> thData = { data1, data2, data3, data4 };
+    auto start = chrono::high_resolution_clock::now();
     // Создаем потоки
-    pthread_t thread1, thread2, thread3, thread4;
-    pthread_create(&thread1, nullptr, FFTThread4, (void*)&data1);
-    pthread_create(&thread2, nullptr, FFTThread4, (void*)&data2);
-    pthread_create(&thread3, nullptr, FFTThread4, (void*)&data3);
-    pthread_create(&thread4, nullptr, FFTThread4, (void*)&data4);
+    vector<pthread_t> thList(4);
+    for (size_t i = 0; i < thList.size(); i++)
+    {
+        pthread_create(&thList[i], nullptr, FFTThreadFunc, (void*)&thData[i]);
+    }
 
     // Ждем завершения потоков
-    pthread_join(thread1, nullptr);
-    pthread_join(thread2, nullptr);
-    pthread_join(thread3, nullptr);
-    pthread_join(thread4, nullptr);
+    for (size_t i = 0; i < thList.size(); i++)
+    {
+        pthread_join(thList[i], nullptr);
+    }
 
     // Перемножаем меньшие полиномы
     vector<double> A = *(data1.output);
-    vector<double> B = *(data2.output);;
-    vector<double> C = *(data3.output);;
-    vector<double> D = *(data4.output);;
-    //vector<double> A = MultPolyExactly(p1_low, p2_low);
-    //vector<double> B = MultPolyExactly(p1_low, p2_high);
-    //vector<double> C = MultPolyExactly(p1_high, p2_low);
-    //vector<double> D = MultPolyExactly(p1_high, p2_high);
+    vector<double> B = *(data2.output);
+    vector<double> C = *(data3.output);
+    vector<double> D = *(data4.output);
+    auto end = chrono::high_resolution_clock::now();
+    cout << "sssssssss time: " << (end-start).count() << "s" << endl;
+    // чистим память
+    for (size_t i = 0; i < thData.size(); i++)
+    {
+        delete thData[i].output;
+    }
 
     // Комбинируем результаты
     vector<double> fracResult(2 * n - 1, 0);
@@ -195,18 +268,18 @@ vector<long> FFTMultPOSIX4(const vector<double>& p1, const vector<double>& p2) {
     return result;
 }
 
+
+
+
 // Структура для передачи данных в поток
 struct FFTData {
     vector<complex<double>>* input;
     vector<complex<double>>* output;
-    pthread_mutex_t* mutex; // Мьютекс для синхронизации
 };
 
 void* FFTThread(void* arg) {
     FFTData* data = (FFTData*)arg;
-    //pthread_mutex_lock(data->mutex);
     *(data->output) = FFT(*(data->input));
-    //pthread_mutex_unlock(data->mutex);
     return nullptr;
 }
 
@@ -228,15 +301,9 @@ vector<long> FFTMultPOSIX(const vector<double>& p1, const vector<double>& p2) {
         f2[i] = complex<double>(p2[i], 0);
     }
 
-    // инитим объекты синхронизации
-    pthread_mutex_t mutex1;
-    pthread_mutex_t mutex2;
-    pthread_mutex_init(&mutex1, nullptr);
-    pthread_mutex_init(&mutex2, nullptr);
-
     // Создаем структуры для передачи данных в потоки
-    FFTData data1 = { &f1, new vector<complex<double>>(size), &mutex1 };
-    FFTData data2 = { &f2, new vector<complex<double>>(size), &mutex2 };
+    FFTData data1 = { &f1, new vector<complex<double>>(size) };
+    FFTData data2 = { &f2, new vector<complex<double>>(size) };
 
     // Создаем потоки
     pthread_t thread1, thread2;
@@ -251,9 +318,6 @@ vector<long> FFTMultPOSIX(const vector<double>& p1, const vector<double>& p2) {
     vector<complex<double>> resF1 = *(data1.output);
     vector<complex<double>> resF2 = *(data2.output);
 
-    // Освобождаем память
-    pthread_mutex_destroy(&mutex1);
-    pthread_mutex_destroy(&mutex2);
     delete data1.output;
     delete data2.output;
 
@@ -418,7 +482,7 @@ void checkAnswers(const vector<long> vect1, const vector<long> vect2) {
 int main()
 {
     // Входные данные
-    const long LEN = pow(2, 17);
+    const long LEN = pow(2, 22);
     vector<double> poly1;
     vector<double> poly2;
     poly1.resize(LEN);
@@ -438,7 +502,7 @@ int main()
 
     // Умножение полиномов с применением быстрого преобразования 
     auto start = chrono::high_resolution_clock::now();
-    vector<long> res1 = FFTMultPOSIX4(poly1, poly2);
+    vector<long> res1 = FFTMultPOSIX(poly1, poly2);
     auto end = chrono::high_resolution_clock::now();
     std::cout << "FFT posix -> ";
     chrono::duration<double> t1 = PrintTime(end - start);
