@@ -111,6 +111,8 @@ def on_paste(event, text_field, word_count, is_pali_var, char_count_var):
         clipboard_text = text_field.clipboard_get()
         # Получаем текущий текст
         text = text_field.get("1.0", "end-1c")
+        is_pali_var.set("Строка палиндром: " + ("Да" if is_palindrome(text) else "Нет"))
+        char_count_var.set("Кол-во символов: " + str(len(text)))
         if len(text) + len(clipboard_text) > MAX_CHARS_IN_TEXT:
             # text_field.clipboard_clear()
             return "break"
