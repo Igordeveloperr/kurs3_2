@@ -64,7 +64,7 @@ def menu():
         print("\nНеверная команда. Попробуйте еще раз.")
         menu()
 
-MAX_CHARS_IN_TEXT = 20#14000
+MAX_CHARS_IN_TEXT = 14000
 
 def enter_text_handler(e,text_field, word_count, is_pali_var, char_count_var):
     text = text_field.get("1.0", "end-1c")
