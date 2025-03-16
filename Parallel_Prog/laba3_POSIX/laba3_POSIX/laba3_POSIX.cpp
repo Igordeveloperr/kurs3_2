@@ -14,8 +14,8 @@
 #endif
 
 using namespace std;
+const int NUM_THREAD = 2;
 
-const int NUM_THREADS = 2;
 
 // прямое преобразование Фурье
 vector<complex<double>> FFT(const vector<complex<double>>& vect) {
@@ -74,264 +74,159 @@ void IFFT(vector<complex<double>>& x) {
     }
 }
 
-// точное умножение полиномов
-vector<double> MultPolyExactly(vector<double>& p1, vector<double>& p2) {
-    long n = p1.size() + p2.size() - 1;
-    long size = 1;
-    // корректировка длины к степени двойки
-    while (size < n) size <<= 1;  // Даем размеры 2, 4, 8, 16, ...
-
-    vector<complex<double>> f1(size), f2(size);
-
-    // переход к комплексным числам
-    for (long i = 0; i < p1.size(); ++i) {
-        f1[i] = complex<double>(p1[i], 0);
-    }
-    for (long i = 0; i < p2.size(); ++i) {
-        f2[i] = complex<double>(p2[i], 0);
-    }
-    // Выполнение FFT
-    vector<complex<double>> resF1 = FFT(f1);
-    vector<complex<double>> resF2 = FFT(f2);
-    // Перемножение (суть ускорения)
-    for (long i = 0; i < size; ++i) {
-        resF1[i] *= resF2[i];
-    }
-    // Выполнение IFFT
-    IFFT(resF1);
-    //Получение результата
-    vector<double> result(n);
-    for (long i = 0; i < n; ++i) {
-        result[i] = resF1[i].real(); // Округляем до ближайшего целого
-    }
-    return result;
-}
-
-// Структура для передачи данных в поток
-struct FFTDataMany {
-    vector<double>* p1;
-    vector<double>* p2;
-    vector<double>* output;
-};
-
-
-void* FFTThreadFunc(void* arg) {
-    FFTDataMany* data = (FFTDataMany*)arg;
-    *(data->output) = MultPolyExactly(*(data->p1), *(data->p2));
-    return nullptr;
-}
-
-// Функция для разбиения полинома на два меньших полинома
-pair<vector<double>, vector<double>> splitPolynomial2(const vector<double>& p, long k) {
-    vector<double> low(p.begin(), p.begin() + k);
-    vector<double> high(p.begin() + k, p.end());
-    return { low, high };
-}
-
-// Функция для разбиения полинома на три части
-vector<vector<double>> splitPolynomial3(const vector<double>& p, long k1, long k2) {
-    vector<double> low(p.begin(), p.begin() + k1);
-    vector<double> mid(p.begin() + k1, p.begin() + k2);
-    vector<double> high(p.begin() + k2, p.end());
-    return { low, mid, high };
-}
-
-// Основная функция для умножения полиномов с разбиением на три части
-vector<long> FFTMultPOSIX6(const vector<double>& p1, const vector<double>& p2) {
-    long n = p1.size();
-    long k1 = n / 2;       // Точка разбиения для p1 (две части)
-    long k2 = n / 3;       // Первая точка разбиения для p2 (три части)
-    long k3 = 2 * n / 3;   // Вторая точка разбиения для p2 (три части)
-    long size = 1;
-
-    // Корректировка длины к степени двойки
-    while (size < n) size <<= 1;
-
-    // Разбиваем полином p1 на две части
-    auto p1_split = splitPolynomial2(p1, k1);
-    vector<double> p1_low = p1_split.first;   // Младшие коэффициенты
-    vector<double> p1_high = p1_split.second; // Старшие коэффициенты
-
-    // Разбиваем полином p2 на три части
-    auto p2_split = splitPolynomial3(p2, k2, k3);
-    vector<double> p2_low = p2_split[0];   // Младшие коэффициенты
-    vector<double> p2_mid = p2_split[1];   // Средние коэффициенты
-    vector<double> p2_high = p2_split[2];  // Старшие коэффициенты
-
-    // Создаем структуры для передачи данных в потоки
-    vector<FFTDataMany> thData = {
-        {&p1_low, &p2_low, new vector<double>(size)},
-        {&p1_low, &p2_mid, new vector<double>(size)},
-        {&p1_low, &p2_high, new vector<double>(size)},
-        {&p1_high, &p2_low, new vector<double>(size)},
-        {&p1_high, &p2_mid, new vector<double>(size)},
-        {&p1_high, &p2_high, new vector<double>(size)},
-    };
-
-    // Создаем потоки
-    vector<pthread_t> thList(thData.size());
-    for (size_t i = 0; i < thList.size(); i++) {
-        pthread_create(&thList[i], nullptr, FFTThreadFunc, (void*)&thData[i]);
-    }
-
-    // Ждем завершения потоков
-    for (size_t i = 0; i < thList.size(); i++) {
-        pthread_join(thList[i], nullptr);
-    }
-
-    // Комбинируем результаты
-    vector<double> fracResult(2 * n - 1, 0);
-    long offsets[] = { 0, k2, k3, k1, k1 + k2, k1 + k3 }; // Смещения для комбинирования
-
-    for (size_t i = 0; i < thData.size(); i++) {
-        for (long j = 0; j < thData[i].output->size(); j++) {
-            fracResult[j + offsets[i]] += (*thData[i].output)[j];
-        }
-    }
-
-    for (size_t i = 0; i < thData.size(); i++)
-    {
-        delete thData[i].output;
-    }
-
-    // Округляем результат
-    vector<long> result(fracResult.size());
-    for (long i = 0; i < fracResult.size(); i++) {
-        result[i] = round(fracResult[i]);
-    }
-
-    return result;
-}
-
-// Основная функция для умножения полиномов с разбиением 4 потока
-vector<long> FFTMultPOSIX4(const vector<double>& p1, const vector<double>& p2) {
-    long n = p1.size();
-    long k = n / 2;
-    long size = 1;
-    // корректировка длины к степени двойки
-    while (size < n) size <<= 1;  // Даем размеры 2, 4, 8, 16, ...
-
-    // Разбиваем полином p1 на две части: p1_low и p1_high
-    pair<vector<double>, vector<double>> p1_split = splitPolynomial2(p1, k);
-    vector<double> p1_low = p1_split.first;   // Младшие коэффициенты
-    vector<double> p1_high = p1_split.second; // Старшие коэффициенты
-
-    // Разбиваем полином p2 на две части: p2_low и p2_high
-    pair<vector<double>, vector<double>> p2_split = splitPolynomial2(p2, k);
-    vector<double> p2_low = p2_split.first;   // Младшие коэффициенты
-    vector<double> p2_high = p2_split.second; // Старшие коэффициенты
-
-    // Создаем структуры для передачи данных в потоки
-    FFTDataMany data1 = { &p1_low, &p2_low, new vector<double>(size) };
-    FFTDataMany data2 = { &p1_low, &p2_high, new vector<double>(size) };
-    FFTDataMany data3 = { &p1_high, &p2_low, new vector<double>(size) };
-    FFTDataMany data4 = { &p1_high, &p2_high, new vector<double>(size) };
-    vector<FFTDataMany> thData = { data1, data2, data3, data4 };
-    auto start = chrono::high_resolution_clock::now();
-    // Создаем потоки
-    vector<pthread_t> thList(4);
-    for (size_t i = 0; i < thList.size(); i++)
-    {
-        pthread_create(&thList[i], nullptr, FFTThreadFunc, (void*)&thData[i]);
-    }
-
-    // Ждем завершения потоков
-    for (size_t i = 0; i < thList.size(); i++)
-    {
-        pthread_join(thList[i], nullptr);
-    }
-
-    // Перемножаем меньшие полиномы
-    vector<double> A = *(data1.output);
-    vector<double> B = *(data2.output);
-    vector<double> C = *(data3.output);
-    vector<double> D = *(data4.output);
-    auto end = chrono::high_resolution_clock::now();
-    cout << "sssssssss time: " << (end-start).count() << "s" << endl;
-    // чистим память
-    for (size_t i = 0; i < thData.size(); i++)
-    {
-        delete thData[i].output;
-    }
-
-    // Комбинируем результаты
-    vector<double> fracResult(2 * n - 1, 0);
-    for (long i = 0; i < A.size(); i++) fracResult[i] += A[i];
-    for (long i = 0; i < B.size(); i++) fracResult[i + k] += B[i];
-    for (long i = 0; i < C.size(); i++) fracResult[i + k] += C[i];
-    for (long i = 0; i < D.size(); i++) fracResult[i + 2 * k] += D[i];
-
-    vector<long> result(fracResult.size());
-    for (long i = 0; i < fracResult.size(); ++i) {
-        result[i] = round(fracResult[i]); // Округляем до ближайшего целого
-    }
-    return result;
-}
-
-
-
-
 // Структура для передачи данных в поток
 struct FFTData {
     vector<complex<double>>* input;
     vector<complex<double>>* output;
 };
-
+// функц для параллель FFT
 void* FFTThread(void* arg) {
     FFTData* data = (FFTData*)arg;
     *(data->output) = FFT(*(data->input));
     return nullptr;
 }
 
+// Структура для передачи данных в поток
+struct DoubleToComplexData {
+    vector<double>* p;
+    vector<complex<double>>* f;
+    long start;
+    long end;
+};
+// функнц для параллель перехода в комплексную плоскасть
+void* DoubleToComplex(void* arg) {
+    DoubleToComplexData* data = (DoubleToComplexData*)arg;
+    for (long i = data->start; i < data->end; i++) {
+        (*data->f)[i] = complex<double>((*data->p)[i], 0);
+    }
+    return nullptr;
+}
+
+// Структура для передачи данных в поток
+struct MultData {
+    vector<complex<double>>* resF1;
+    vector<complex<double>>* resF2;
+    long start;
+    long end;
+};
+// функнц для параллель умножения
+void* MultiplyVectors(void* arg) {
+    MultData* data = (MultData*)arg;
+    for (long i = data->start; i < data->end; ++i) {
+        (*data->resF1)[i] *= (*data->resF2)[i];
+    }
+    return nullptr;
+}
+
+// Структура для передачи данных в поток
+struct ResultData {
+    vector<complex<double>>* resF1;
+    vector<long>* result;
+    long start;
+    long end;
+};
+// Функция для параллель заполнения результата
+void* FillResult(void* arg) {
+    ResultData* data = (ResultData*)arg;
+    for (long i = data->start; i < data->end; ++i) {
+        (*data->result)[i] = std::round((*data->resF1)[i].real());
+    }
+    return nullptr;
+}
+
+const int NUM_THREADS = 8;
+const long LEN = pow(2, 25);
 // умножение полиномов с применением быстрого преобразования
-vector<long> FFTMultPOSIX(const vector<double>& p1, const vector<double>& p2) {
+vector<long> FFTMultPOSIX(vector<double>& p1, vector<double>& p2) {
     long n = p1.size() + p2.size() - 1;
     long size = 1;
     // корректировка длины к степени двойки
     while (size < n) size <<= 1;  // Даем размеры 2, 4, 8, 16, ...
 
+    // массив потоков
+    pthread_t threads[NUM_THREADS];
+
+    DoubleToComplexData threadData[NUM_THREADS];
     vector<complex<double>> f1(size), f2(size);
+    vector<complex<double>> resF1(size), resF2(size);
+    vector<vector<complex<double>>*> complF = { &f1, &f2 };
+    vector<vector<complex<double>>*> resF = { &resF1, &resF2 };
 
-    // переход к комплексным числам
-    for (long i = 0; i < p1.size(); ++i) {
-        f1[i] = complex<double>(p1[i], 0);
+    // распараллеливание цикла перехода в комплексную плоскость
+    for (int i = 0; i < NUM_THREADS; i++) {
+        threadData[i].p = &p1;
+        threadData[i].f = &f1;
+        threadData[i].start = i * p1.size() / NUM_THREADS;
+        threadData[i].end = (i == NUM_THREADS - 1) ? p1.size() : (i + 1) * p1.size() / NUM_THREADS;
+
+        pthread_create(&threads[i], nullptr, DoubleToComplex, &threadData[i]);
+    }
+    // Ждем завершения всех потоков
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], nullptr);
     }
 
-    for (long i = 0; i < p2.size(); ++i) {
-        f2[i] = complex<double>(p2[i], 0);
+    // распараллеливание цикла перехода в комплексную плоскость
+    for (int i = 0; i < NUM_THREADS; i++) {
+        threadData[i].p = &p2;
+        threadData[i].f = &f2;
+        threadData[i].start = i * p2.size() / NUM_THREADS;
+        threadData[i].end = (i == NUM_THREADS - 1) ? p2.size() : (i + 1) * p2.size() / NUM_THREADS;
+
+        pthread_create(&threads[i], nullptr, DoubleToComplex, &threadData[i]);
+    }
+    // Ждем завершения всех потоков
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], nullptr);
     }
 
-    // Создаем структуры для передачи данных в потоки
-    FFTData data1 = { &f1, new vector<complex<double>>(size) };
-    FFTData data2 = { &f2, new vector<complex<double>>(size) };
-
-    // Создаем потоки
-    pthread_t thread1, thread2;
-    pthread_create(&thread1, nullptr, FFTThread, (void*)&data1);
-    pthread_create(&thread2, nullptr, FFTThread, (void*)&data2);
-
-    // Ждем завершения потоков
-    pthread_join(thread1, nullptr);
-    pthread_join(thread2, nullptr);
-
-    // Получаем результаты БПФ
-    vector<complex<double>> resF1 = *(data1.output);
-    vector<complex<double>> resF2 = *(data2.output);
-
-    delete data1.output;
-    delete data2.output;
-
+    // FFT
+    FFTData fftData[NUM_THREAD];
+    for (int i = 0; i < NUM_THREAD; i++)
+    {
+        fftData[i].input = complF[i];
+        fftData[i].output = resF[i];
+        pthread_create(&threads[i], nullptr, FFTThread, (void*)&fftData[i]);
+    }
+    for (int i = 0; i < NUM_THREAD; i++)
+    {   
+        pthread_join(threads[i], nullptr);
+    }
+   
     // Перемножение (суть ускорения)
-    for (long i = 0; i < size; ++i) {
-        resF1[i] *= resF2[i];
+    MultData threadMultData[NUM_THREADS];
+    for (int i = 0; i < NUM_THREADS; i++) {
+        threadMultData[i].resF1 = &resF1;
+        threadMultData[i].resF2 = &resF2;
+        threadMultData[i].start = i * size / NUM_THREADS;
+        threadMultData[i].end = (i == NUM_THREADS - 1) ? size : (i + 1) * size / NUM_THREADS;
+
+        pthread_create(&threads[i], nullptr, MultiplyVectors, &threadMultData[i]);
     }
+    // Ждем завершения всех потоков
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], nullptr);
+    }
+
     // Выполнение IFFT
     IFFT(resF1);
+
     //Получение результата
     vector<long> result(n);
-    for (long i = 0; i < n; ++i) {
-        result[i] = round(resF1[i].real()); // Округляем до ближайшего целого
+    ResultData threadResData[NUM_THREADS];
+    for (int i = 0; i < NUM_THREADS; i++) {
+        threadResData[i].resF1 = &resF1;
+        threadResData[i].result = &result;
+        threadResData[i].start = i * n / NUM_THREADS;
+        threadResData[i].end = (i == NUM_THREADS - 1) ? n : (i + 1) * n / NUM_THREADS;
+
+        pthread_create(&threads[i], nullptr, FillResult, &threadResData[i]);
     }
+    // Ждем завершения всех потоков
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], nullptr);
+    }
+
     return result;
 }
 
@@ -482,7 +377,6 @@ void checkAnswers(const vector<long> vect1, const vector<long> vect2) {
 int main()
 {
     // Входные данные
-    const long LEN = pow(2, 22);
     vector<double> poly1;
     vector<double> poly2;
     poly1.resize(LEN);
