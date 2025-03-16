@@ -1,3 +1,4 @@
-from str_modul import menu
+from str_modul import menu, init_user_intarface
 
-menu()
+# menu()
+init_user_intarface()
