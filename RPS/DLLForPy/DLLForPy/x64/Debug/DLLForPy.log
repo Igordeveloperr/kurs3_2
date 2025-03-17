@@ -1,0 +1,8 @@
+﻿  myDll.cpp
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\RPS\DLLForPy\DLLForPy\myDll.cpp(5,5): warning C4273: 'number_of_words': inconsistent dll linkage
+  (compiling source file '/myDll.cpp')
+      C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\RPS\DLLForPy\DLLForPy\myDll.h(11,35):
+      see previous definition of 'number_of_words'
+  
+     Creating library C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\RPS\DLLForPy\x64\Debug\DLLForPy.lib and object C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\RPS\DLLForPy\x64\Debug\DLLForPy.exp
+  DLLForPy.vcxproj -> C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\RPS\DLLForPy\x64\Debug\DLLForPy.dll
