@@ -16,7 +16,6 @@
 using namespace std;
 const int NUM_THREAD = 2;
 
-
 // прямое преобразование Фурье
 vector<complex<double>> FFT(const vector<complex<double>>& vect) {
     long n = vect.size();
@@ -134,8 +133,8 @@ void* FillResult(void* arg) {
     return nullptr;
 }
 
-const int NUM_THREADS = 8;
-const long LEN = pow(2, 25);
+const int NUM_THREADS = 2;
+const long LEN = pow(2, 20);
 // умножение полиномов с применением быстрого преобразования
 vector<long> FFTMultPOSIX(vector<double>& p1, vector<double>& p2) {
     long n = p1.size() + p2.size() - 1;
