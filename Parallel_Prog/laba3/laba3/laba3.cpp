@@ -1,4 +1,5 @@
-﻿#include <stdio.h>
+﻿#define HAVE_STRUCT_TIMESPEC
+#include <stdio.h>
 #include <iostream>
 #include <vector>
 #include <complex>
@@ -8,6 +9,7 @@
 #include <thread>
 #include <iomanip>
 #include <omp.h>
+#include <pthread.h>
 #include "mpi.h"
 
 #ifndef M_PI
@@ -15,6 +17,9 @@
 #endif
 
 using namespace std;
+const int NUM_THREAD = 2;
+
+
 // прямое преобразование Фурье
 vector<complex<double>> FFT(const vector<complex<double>>& vect) {
     long n = vect.size();
@@ -72,9 +77,69 @@ void IFFT(vector<complex<double>>& x) {
     }
 }
 
+// Структура для передачи данных в поток
+struct FFTData {
+    vector<complex<double>>* input;
+    vector<complex<double>>* output;
+};
+// функц для параллель FFT
+void* FFTThread(void* arg) {
+    FFTData* data = (FFTData*)arg;
+    *(data->output) = FFT(*(data->input));
+    return nullptr;
+}
+
+// Структура для передачи данных в поток
+struct DoubleToComplexData {
+    vector<double>* p;
+    vector<complex<double>>* f;
+    long start;
+    long end;
+};
+// функнц для параллель перехода в комплексную плоскасть
+void* DoubleToComplex(void* arg) {
+    DoubleToComplexData* data = (DoubleToComplexData*)arg;
+    for (long i = data->start; i < data->end; i++) {
+        (*data->f)[i] = complex<double>((*data->p)[i], 0);
+    }
+    return nullptr;
+}
+
+// Структура для передачи данных в поток
+struct MultData {
+    vector<complex<double>>* resF1;
+    vector<complex<double>>* resF2;
+    long start;
+    long end;
+};
+// функнц для параллель умножения
+void* MultiplyVectors(void* arg) {
+    MultData* data = (MultData*)arg;
+    for (long i = data->start; i < data->end; ++i) {
+        (*data->resF1)[i] *= (*data->resF2)[i];
+    }
+    return nullptr;
+}
+
+// Структура для передачи данных в поток
+struct ResultData {
+    vector<complex<double>>* resF1;
+    vector<long>* result;
+    long start;
+    long end;
+};
+// Функция для параллель заполнения результата
+void* FillResult(void* arg) {
+    ResultData* data = (ResultData*)arg;
+    for (long i = data->start; i < data->end; ++i) {
+        (*data->result)[i] = std::round((*data->resF1)[i].real());
+    }
+    return nullptr;
+}
+
 const int NUM_THREADS = 8;
-const long LEN = pow(2, 20);
-// умножение полиномов с применением быстрого преобразования mpi
+const long LEN = pow(2, 25);
+// умножение полиномов с применением быстрого преобразования MPI
 vector<long> FFTMultMpi(const vector<double>& p1, const vector<double>& p2) {
     int rank, numtasks;
     // получение уникального id процесса
@@ -182,56 +247,12 @@ vector<long> FFTMultMpi(const vector<double>& p1, const vector<double>& p2) {
         MPI_Send(resF2.data(), size, MPI_C_DOUBLE_COMPLEX, 0, 0, MPI_COMM_WORLD);
     }
 
-    // рассылка актуальных данных процессам с общим коммуникатором
-    MPI_Bcast(resF1.data(), resF1.size(), MPI_C_DOUBLE_COMPLEX, 0, MPI_COMM_WORLD);
-    MPI_Bcast(resF2.data(), resF2.size(), MPI_C_DOUBLE_COMPLEX, 0, MPI_COMM_WORLD);
-
-    // размер блока данных для каждого процесса
-    local_size = size / numtasks;
-    // остаток от деления общего размера на число процессов
-    remainder = size % numtasks;
-    // Начальный индекс данных для текущего процесса
-    start = rank * local_size + ((rank < remainder) ? rank : remainder);
-    // Конечный индекс данных для текущего процесса
-    end = start + local_size + (rank < remainder ? 1 : 0);
-    // Фактический размер блока данных для текущего процесса
-    local_size = end - start;
-    
-
-    // Локальный буфер для частичных результатов
-    vector<complex<double>> local_resF(local_size);
-
-    // Каждый процесс обрабатывает свою часть данных
-    for (long i = 0; i < local_size; i++) {
-        local_resF[i] = resF1[start + i] * resF2[start + i];
-    }
-
-    // Вектор размеров принимаемых блоков от каждого процесса
-    vector<int> recv_counts(numtasks);
-    // Вектор смещений для данных каждого процесса в итоговом массиве
-    vector<int> displs(numtasks);
-
-    // Собираем размеры локальных блоков со всех процессов в вектор recv_counts
-    MPI_Gather(&local_size, 1, MPI_INT,
-        recv_counts.data(), 1, MPI_INT,
-        0, MPI_COMM_WORLD);
-
-    // Вычисляем смещения на процессе 0
-    if (rank == 0) {
-        displs[0] = 0;
-        for (int i = 1; i < numtasks; i++) {
-            displs[i] = displs[i - 1] + recv_counts[i - 1];
-        }
-    }
-
-    // Собираем распределенные данные из local_resF всех процессов в единый массив resF1 в процессе 0
-    MPI_Gatherv(local_resF.data(), local_size, MPI_C_DOUBLE_COMPLEX,
-        resF1.data(), recv_counts.data(), displs.data(),
-        MPI_C_DOUBLE_COMPLEX,
-        0, MPI_COMM_WORLD);
-
     // выдача результата
     if (rank == 0) {
+        for (long i = 0; i < size; i++) {
+            resF1[i] *= resF2[i];
+        }
+
         // Выполнение IFFT
         IFFT(resF1);
 
@@ -246,7 +267,101 @@ vector<long> FFTMultMpi(const vector<double>& p1, const vector<double>& p2) {
     return vector<long>(); // Процесс 1 возвращает пустой вектор
 }
 
-// умножение полиномов с применением быстрого преобразования openMp
+// умножение полиномов с применением быстрого преобразования POSIX
+vector<long> FFTMultPOSIX(vector<double>& p1, vector<double>& p2) {
+    long n = p1.size() + p2.size() - 1;
+    long size = 1;
+    // корректировка длины к степени двойки
+    while (size < n) size <<= 1;  // Даем размеры 2, 4, 8, 16, ...
+
+    // массив потоков
+    pthread_t threads[NUM_THREADS];
+
+    DoubleToComplexData threadData[NUM_THREADS];
+    vector<complex<double>> f1(size), f2(size);
+    vector<complex<double>> resF1(size), resF2(size);
+    vector<vector<complex<double>>*> complF = { &f1, &f2 };
+    vector<vector<complex<double>>*> resF = { &resF1, &resF2 };
+
+    // распараллеливание цикла перехода в комплексную плоскость
+    for (int i = 0; i < NUM_THREADS; i++) {
+        threadData[i].p = &p1;
+        threadData[i].f = &f1;
+        threadData[i].start = i * p1.size() / NUM_THREADS;
+        threadData[i].end = (i == NUM_THREADS - 1) ? p1.size() : (i + 1) * p1.size() / NUM_THREADS;
+
+        pthread_create(&threads[i], nullptr, DoubleToComplex, &threadData[i]);
+    }
+    // Ждем завершения всех потоков
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], nullptr);
+    }
+
+    // распараллеливание цикла перехода в комплексную плоскость
+    for (int i = 0; i < NUM_THREADS; i++) {
+        threadData[i].p = &p2;
+        threadData[i].f = &f2;
+        threadData[i].start = i * p2.size() / NUM_THREADS;
+        threadData[i].end = (i == NUM_THREADS - 1) ? p2.size() : (i + 1) * p2.size() / NUM_THREADS;
+
+        pthread_create(&threads[i], nullptr, DoubleToComplex, &threadData[i]);
+    }
+    // Ждем завершения всех потоков
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], nullptr);
+    }
+
+    // FFT
+    FFTData fftData[NUM_THREAD];
+    for (int i = 0; i < NUM_THREAD; i++)
+    {
+        fftData[i].input = complF[i];
+        fftData[i].output = resF[i];
+        pthread_create(&threads[i], nullptr, FFTThread, (void*)&fftData[i]);
+    }
+    for (int i = 0; i < NUM_THREAD; i++)
+    {
+        pthread_join(threads[i], nullptr);
+    }
+
+    // Перемножение (суть ускорения)
+    MultData threadMultData[NUM_THREADS];
+    for (int i = 0; i < NUM_THREADS; i++) {
+        threadMultData[i].resF1 = &resF1;
+        threadMultData[i].resF2 = &resF2;
+        threadMultData[i].start = i * size / NUM_THREADS;
+        threadMultData[i].end = (i == NUM_THREADS - 1) ? size : (i + 1) * size / NUM_THREADS;
+
+        pthread_create(&threads[i], nullptr, MultiplyVectors, &threadMultData[i]);
+    }
+    // Ждем завершения всех потоков
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], nullptr);
+    }
+
+    // Выполнение IFFT
+    IFFT(resF1);
+
+    //Получение результата
+    vector<long> result(n);
+    ResultData threadResData[NUM_THREADS];
+    for (int i = 0; i < NUM_THREADS; i++) {
+        threadResData[i].resF1 = &resF1;
+        threadResData[i].result = &result;
+        threadResData[i].start = i * n / NUM_THREADS;
+        threadResData[i].end = (i == NUM_THREADS - 1) ? n : (i + 1) * n / NUM_THREADS;
+
+        pthread_create(&threads[i], nullptr, FillResult, &threadResData[i]);
+    }
+    // Ждем завершения всех потоков
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], nullptr);
+    }
+
+    return result;
+}
+
+// умножение полиномов с применением быстрого преобразования OpenMP
 vector<long> FFTMultOpenMp(const vector<double>& p1, const vector<double>& p2) {
     long n = p1.size() + p2.size() - 1;
     long size = 1;
@@ -428,9 +543,19 @@ int main(int argc, char** argv)
     vector<long> res1 = FFTMultMpi(poly1, poly2);
     auto end = chrono::high_resolution_clock::now();
 
+    // Синхронизация процессов
+    MPI_Barrier(MPI_COMM_WORLD);
+
     if (rank == 0) {
         std::cout << "FFT paral MPI -> ";
         chrono::duration<double> t1 = PrintTime(end - start);
+
+        // Умножение полиномов с применением POSIX
+        start = chrono::high_resolution_clock::now();
+        vector<long> res4 = FFTMultPOSIX(poly1, poly2);
+        end = chrono::high_resolution_clock::now();
+        std::cout << "FFT paral POSIX -> ";
+        chrono::duration<double> t4 = PrintTime(end - start);
 
         // Умножение полиномов с применением OpenMp
         start = chrono::high_resolution_clock::now();
@@ -445,8 +570,11 @@ int main(int argc, char** argv)
         end = chrono::high_resolution_clock::now();
         std::cout << "FFT def -> ";
         chrono::duration<double> t3 = PrintTime(end - start);
+
+
         std::cout << "k_mpi = " << t3 / t1 << endl;
         std::cout << "k_openMp = " << t3 / t2 << endl;
+        std::cout << "k_posix = " << t3 / t4 << endl;
 
         checkAnswers(res1, res3);
     }

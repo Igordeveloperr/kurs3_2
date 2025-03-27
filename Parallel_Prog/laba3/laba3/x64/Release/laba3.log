@@ -1,32 +1,40 @@
 ﻿  laba3.cpp
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(20,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(62,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(76,21): warning C4244: 'initializing': conversion from 'double' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(76,16): warning C4244: 'initializing': conversion from 'double' to 'const long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(85,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(94,21): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(186,39): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(187,39): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(241,30): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(241,30): warning C4244:         with
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(241,30): warning C4244:         [
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(241,30): warning C4244:             _Ty=long
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(241,30): warning C4244:         ]
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(251,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(310,30): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(310,30): warning C4244:         with
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(310,30): warning C4244:         [
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(310,30): warning C4244:             _Ty=long
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(310,30): warning C4244:         ]
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(319,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(345,26): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(345,26): warning C4244:         with
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(345,26): warning C4244:         [
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(345,26): warning C4244:             _Ty=long
-C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(345,26): warning C4244:         ]
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(25,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(67,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(135,40): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(135,40): warning C4244:         with
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(135,40): warning C4244:         [
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(135,40): warning C4244:             _Ty=long
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(135,40): warning C4244:         ]
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(141,21): warning C4244: 'initializing': conversion from 'double' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(141,16): warning C4244: 'initializing': conversion from 'double' to 'const long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(150,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(159,21): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(262,30): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(262,30): warning C4244:         with
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(262,30): warning C4244:         [
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(262,30): warning C4244:             _Ty=long
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(262,30): warning C4244:         ]
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(272,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(290,45): warning C4267: '=': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(291,32): warning C4267: '=': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(304,45): warning C4267: '=': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(305,32): warning C4267: '=': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(366,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(425,30): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(425,30): warning C4244:         with
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(425,30): warning C4244:         [
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(425,30): warning C4244:             _Ty=long
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(425,30): warning C4244:         ]
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(434,12): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(460,26): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(460,26): warning C4244:         with
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(460,26): warning C4244:         [
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(460,26): warning C4244:             _Ty=long
+C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\laba3\laba3.cpp(460,26): warning C4244:         ]
   Generating code
-  3 of 273 functions ( 1.1%) were compiled, the rest were copied from previous compilation.
+  2 of 320 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   laba3.vcxproj -> C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3\x64\Release\laba3.exe
