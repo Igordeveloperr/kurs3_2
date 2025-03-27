@@ -28,6 +28,6 @@ C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog
   Generating code
   8 of 284 functions ( 2.8%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   laba3_POSIX.vcxproj -> C:\Users\gbikm\OneDrive\Рабочий стол\study\3_2 курс\Parallel_Prog\laba3_POSIX\x64\Release\laba3_POSIX.exe

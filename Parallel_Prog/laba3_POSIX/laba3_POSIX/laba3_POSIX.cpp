@@ -133,7 +133,7 @@ void* FillResult(void* arg) {
     return nullptr;
 }
 
-const int NUM_THREADS = 2;
+const int NUM_THREADS = 4;
 const long LEN = pow(2, 20);
 // умножение полиномов с применением быстрого преобразования
 vector<long> FFTMultPOSIX(vector<double>& p1, vector<double>& p2) {
