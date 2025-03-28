@@ -137,8 +137,8 @@ void* FillResult(void* arg) {
     return nullptr;
 }
 
-const int NUM_THREADS = 8;
-const long LEN = pow(2, 25);
+const int NUM_THREADS = 2;
+const long LEN = pow(2, 20);
 // умножение полиномов с применением быстрого преобразования MPI
 vector<long> FFTMultMpi(const vector<double>& p1, const vector<double>& p2) {
     int rank, numtasks;
