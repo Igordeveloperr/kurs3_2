@@ -1,0 +1,36 @@
+ Работа в программной модели PELinker начинается с создания заголовка PE-
+файла, далее создаются секции и производится разрешение статических и внеш-
+них ссылок с помощью информации, хранящейся в структуре COFF-файла в таб-
+лице Relocation и секции SYMBOLTABLE.Сначала определяется адрес вызова
+функции или адрес переменной в таблице Relocation; далее, по адресу в поле
+SymIndex определяется индекс в секции SYMBOLTABLE, где хранится информа-
+ция о типе ссылки(EXTERNAL или STATIC), имя и, в случае STATIC, значение
+ссылки. На основании полученных сведений заполняется секция .text.4 Экранные формы
+Рисунок 1 – Структура COFF-файлаРисунок 2 – Секция .text с разрешенными ссылками
+Рисунок 3 – Секция импорта .idata5 Исходный код
+.386
+.model flat
+extrn MessageBoxA: dword
+extrn ExitProcess: dword
+extrn GetShortPathNameA: dword
+.code
+_start:
+push offset cchBuffer
+push offset lpszShortPath
+push offset lpszLongPath
+call GetShortPathNameA
+push 40h
+push offset msg
+push offset lpszShortPath
+push 00h
+call MessageBoxA
+push 00h
+call ExitProcess
+.data
+cchBuffer db 6 dup(0),0
+lpszLongPath db ’D:\Lab7\lab7.txt’,0
+lpszShortPath db 6 dup(0),0
+msg db ’ShortName’,0
+end _start6 Вывод
+ВрезультателабораторнойработыбылиизученыформатыPEиCOFF-файлов,
+а также выполнены все поставленные задания на лабораторную работу.

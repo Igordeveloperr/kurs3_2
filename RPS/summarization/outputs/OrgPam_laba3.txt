@@ -1,0 +1,222 @@
+ 3 Схема установки
+4 Таблица IDT
+5 Окно результатов
+6 Листинг кода
+N Command Comments
+000 mov #6016, @#172340 zagruz sis adresov
+001 mov #6545, @#172342
+002 mov #6732, @#172344
+003 mov #6060, @#172346
+004 mov #5430, @#172350
+005 mov #5070, @#172352
+006 mov #4640, @#172354
+007 mov #7600, @#172356
+010 mov #65436, @#172300 zagruz sis prav
+011 mov #17004, @#172302
+012 mov #50036, @#172304
+013 mov #35022, @#172306
+014 mov #04420, @#172310
+015 mov #15422, @#172312
+016 mov #40400, @#172314
+017 mov #77426, @#172316
+020 mov #1, @#177572 vkl UUP
+021 mov #0540, @#177640 zugruz pol"z adres
+022 mov #1545, @#177642
+023 mov #2732, @#177644
+024 mov #3060, @#177646025 mov #4000, @#177650
+026 mov #2070, @#177652
+027 mov #3640, @#177654
+030 mov #7600, @#177656
+031 mov #22004, @#177600 zagruz pol"z prav
+032 mov #27000, @#177602
+033 mov #33426, @#177604
+034 mov #25022, @#177606
+035 mov #73036, @#177610
+036 mov #11420, @#177612
+037 mov #43036, @#177614
+040 mov #37426, @#177616
+041 mov #140000, @#177776 pol"z rezhim vkl
+042 jsr @#100 funk summy
+043 emt #0 preryvanie dlya sis prog
+044 jsr @#140 funk prov na 0
+045 trap #0 preryv dlya p.rezh
+046 emt #2 vkl p.rezhim
+047 trap #0 preryv dlya p.rezh
+050 jsr @#230 chast" 2.1
+051 jsr @#246 chast" 2.2
+052
+053
+054
+055
+056
+057
+060
+061
+062
+063
+064
+065
+066
+067
+070
+071
+072
+073
+074
+075
+076
+077 summa N-chisel
+100 clr @#40600 chistim akum
+101 add @#002050, @#40600 slozhenie
+102 add @#022050, @#40600 slozhenie
+103 add @#042050, @#40600 slozhenie
+104 add @#062050, @#40600 slozhenie
+105 add @#102050, @#40600 slozhenie
+106 add @#122050, @#40600 slozhenie107 add @#142050, @#40600 slozhenie
+110 add @#162050, @#40600 slozhenie
+111 rts return
+112
+113
+114
+115
+116
+117 sis prog ochistka bit
+120 mov #002000, r1 r1:=data
+121 mov #020600, r2 r2:=data
+122 bic 50(r1), (r2) chistim registry
+123 mov #042000, r1 r1:=data
+124 mov #060600, r2 r2:=data
+125 bic 50(r1), (r2) chistim registry
+126 mov #102000, r1 r1:=data
+127 mov #120600, r2 r2:=data
+130 bic 50(r1), (r2) chistim registry
+131 mov #142000, r1 r1:=data
+132 mov #160600, r2 r2:=data
+133 bic 50(r1), (r2) chistim registry
+134 rti return
+135
+136
+137 proverka na 0 chisel
+140 mov #002050, r1 r1:=data
+141 tst (r1) proverka na 0
+142 mov #022050, r1 r1:=data
+143 tst (r1) proverka na 0
+144 mov #042050, r1 r1:=data
+145 tst (r1) proverka na 0
+146 mov #062050, r1 r1:=data
+147 tst (r1) proverka na 0
+150 mov #102050, r1 r1:=data
+151 tst (r1) proverka na 0
+152 mov #122050, r1 r1:=data
+153 tst (r1) proverka na 0
+154 mov #142050, r1 r1:=data
+155 tst (r1) proverka na 0
+156 mov #162050, r1 r1:=data
+157 tst (r1) proverka na 0
+160 rts return
+161
+162
+163
+164
+165
+166
+167 p.rezh preryv
+170 mov #002000, r1 r1:=data171 comb 50(r1) inversiya
+172 mov #022000, r1 r1:=data
+173 comb 50(r1) inversiya
+174 mov #042000, r1 r1:=data
+175 comb 50(r1) inversiya
+176 mov #062000, r1 r1:=data
+177 comb 50(r1) inversiya
+200 mov #102000, r1 r1:=data
+201 comb 50(r1) inversiya
+202 mov #122000, r1 r1:=data
+203 comb 50(r1) inversiya
+204 mov #142000, r1 r1:=data
+205 comb 50(r1) inversiya
+206 mov #162000, r1 r1:=data
+207 comb 50(r1) inversiya
+210 rtt return
+211
+212
+213
+214
+215
+216
+217 vkl pol"z rezhim
+220 mov #5073, @#177654 izmen p.adresov
+221 mov #13420, @#177614 izmen p.adresov
+222 mov #1012, @#177652 izmen p.deskript
+223 mov #33400, @#177612 izmen p.deskript
+224 rti return
+225
+226
+227 chast" 2.1
+230 mov @#1001, r1 004
+231 ;movv @#1000, r0 010
+232 emt #6 014
+233 clr @#160004 120
+234 emt #12 160
+235 inc @#140000 250: 100
+236 inc @#047776 250: 010
+237 inc @#060000 250: 001
+240 inc @#147776 250: 110
+241 inc @#067776 250: 011
+242 emt #16 250: 100 mod
+243 inc @#000000 250: 111
+244 rts
+245 chast" 2.2
+246 mov @#020000, r1 250: 100
+247 mov @#007776, r1 250: 010
+250 inc @#000000 250: 001
+251 mov @#027776, r1 250: 110
+252 inc @#007776 250: 011253 inc @#020000 250: 101
+254 inc @#027776 250: 111
+255 rts
+256
+257
+260
+261
+262
+263
+264 mov #140000, @#177776 100 mod
+265 rti
+266
+267
+270 mov #140020, @#177776 T
+271 rti
+272
+273 mov #7776, @#172354 160
+274 mov #77426, @#172314
+275 clr @#150002
+276 rti
+277
+300 mov #4, R0 IH 4
+301 mov (R6), R0
+302 rti
+303
+304 mov #10, R0 IH 10
+305 mov (R6), R0
+306 rti
+307
+310 mov #14, R0 IH 14
+311 mov (R6), R0
+312 rti
+313
+314 mov #120, R0 IH 120
+315 mov (R6), R0
+316 rti
+317
+320 mov #160, R0 IH 160
+321 mov (R6), R0
+322 rti
+323
+324 mov #250, R0 IH 250
+325 mov (R6), R0
+326 mov @#177572, R0
+327 mov @#177576, R0
+330 rti7 Выводы по работе
+В ходе лабораторной работы были изучены методы и средства
+преобразования логического адреса в физический, методы и сред-
+ства по защите памяти, реализованных в устройстве управле-
+ния памятью.
